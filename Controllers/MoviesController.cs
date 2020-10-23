@@ -10,6 +10,7 @@ using MvcMovie.Models;
 
 namespace MvcMovie.Controllers
 {
+    [Route("home")]
     public class MoviesController : Controller
     {
         private readonly MvcMovieContext _context;
@@ -19,6 +20,7 @@ namespace MvcMovie.Controllers
             _context = context;
         }
 
+        [Route("create")]
         // GET: Movies
         public async Task<IActionResult> Index(string movieGenre,string searchString)
         {
@@ -77,7 +79,7 @@ namespace MvcMovie.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,RelaeseDate,Genre,Price")] Movie movie)
+        public async Task<IActionResult> Create(Movie movie)
         {
             if (ModelState.IsValid)
             {
@@ -104,12 +106,13 @@ namespace MvcMovie.Controllers
             return View(movie);
         }
 
+        // Sử dụng Model
         // POST: Movies/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,RelaeseDate,Genre,Price")] Movie movie)
+        public async Task<IActionResult> Edit(int id,Movie movie)
         {
             if (id != movie.Id)
             {
